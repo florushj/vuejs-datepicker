@@ -12,7 +12,7 @@
         readonly>
     <i class="datepicker-clear-button" v-if="clearButton" @click="clearDate()">&times;</i>
         <!-- Day View -->
-        <div class="calendar" v-show="showDayView" :class="[isInline && 'inline']">
+        <div class="calendar" v-show="showDayView" :class="[isInline ? 'inline' : '']">
             <header>
                 <span
                     @click="previousMonth"
@@ -34,7 +34,7 @@
         </div>
 
         <!-- Month View -->
-        <div class="calendar" v-show="showMonthView" :class="[isInline && 'inline']">
+        <div class="calendar" v-show="showMonthView" :class="[isInline ? 'inline' : '']">
             <header>
                 <span
                     @click="previousYear"
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Year View -->
-        <div class="calendar" v-show="showYearView" :class="[isInline && 'inline']">
+        <div class="calendar" v-show="showYearView" :class="[isInline ? 'inline' : '']">
             <header>
                 <span @click="previousDecade" class="prev"
                     v-bind:class="{ 'disabled' : previousDecadeDisabled(currDate) }">&lt;</span>
