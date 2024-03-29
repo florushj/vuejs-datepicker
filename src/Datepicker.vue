@@ -248,25 +248,6 @@ export default {
         dObj.setFullYear(dObj.getFullYear() + 1)
       }
       return years
-    },
-    calendarStyle () {
-      let elSize = {
-        top: 0,
-        height: 0
-      }
-      if (this.$el) {
-        elSize = this.$el.getBoundingClientRect()
-      }
-      let heightNeeded = elSize.top + elSize.height + this.calendarHeight || 0
-      let styles = {}
-      // if the calendar doesn't fit on the window without scrolling position it above the input
-      if (heightNeeded > window.innerHeight) {
-        // This should be using CSSOM to comply with CSP directive of style-src: self.
-        // TODO: Maybe use a watcher?
-        this.$el.style.bottom = elSize.height + 'px'
-      }
-
-      return styles
     }
   },
   methods: {
@@ -726,7 +707,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-@import 'styles/style.styl';
-</style>
