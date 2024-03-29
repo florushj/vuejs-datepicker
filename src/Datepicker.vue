@@ -79,6 +79,9 @@ import DateLanguages from './utils/DateLanguages.js'
 
 export default {
   props: {
+    nonce: {
+      value: String
+    },
     value: {
       validator: function (val) {
         return val === null || val instanceof Date || typeof val === 'string'
@@ -708,6 +711,6 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" :nonce="nonce">
 @import 'styles/style.styl';
 </style>
