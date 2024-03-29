@@ -12,7 +12,7 @@
         readonly>
     <i class="datepicker-clear-button" v-if="clearButton" @click="clearDate()">&times;</i>
         <!-- Day View -->
-        <div class="calendar" v-show="showDayView" v-bind:style="calendarStyle">
+        <div class="calendar" v-show="showDayView" :class="[isInline && 'inline']">
             <header>
                 <span
                     @click="previousMonth"
@@ -34,7 +34,7 @@
         </div>
 
         <!-- Month View -->
-        <div class="calendar" v-show="showMonthView" v-bind:style="calendarStyleSecondary">
+        <div class="calendar" v-show="showMonthView" :class="[isInline && 'inline']">
             <header>
                 <span
                     @click="previousYear"
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Year View -->
-        <div class="calendar" v-show="showYearView" v-bind:style="calendarStyleSecondary">
+        <div class="calendar" v-show="showYearView" :class="[isInline && 'inline']">
             <header>
                 <span @click="previousDecade" class="prev"
                     v-bind:class="{ 'disabled' : previousDecadeDisabled(currDate) }">&lt;</span>
@@ -261,18 +261,12 @@ export default {
       let styles = {}
       // if the calendar doesn't fit on the window without scrolling position it above the input
       if (heightNeeded > window.innerHeight) {
-        styles = {
-          'bottom': elSize.height + 'px'
-        }
-      }
-      if (this.isInline()) {
-        styles.position = 'static'
+        // This should be using CSSOM to comply with CSP directive of style-src: self.
+        // TODO: Maybe use a watcher?
+        this.$el.style.bottom = elSize.height + 'px'
       }
 
       return styles
-    },
-    calendarStyleSecondary () {
-      return (this.isInline()) ? { 'position': 'static' } : {}
     }
   },
   methods: {
@@ -835,6 +829,9 @@ $width = 300px
     .month,
     .year
         width 33.333%
+
+    &.inline
+      position: static
 
 .datepicker-clear-button
     cursor: pointer
